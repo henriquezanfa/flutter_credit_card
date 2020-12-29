@@ -17,7 +17,7 @@ class CreditCardWidget extends StatefulWidget {
     this.width,
     this.textStyle,
     this.cardBgColor = const Color(0xff1b447b),
-    this.localizedText = const LocalizedText(),
+    this.backgroundGradientColor,
   })  : assert(cardNumber != null),
         assert(showBackView != null),
         assert(localizedText != null),
@@ -33,7 +33,7 @@ class CreditCardWidget extends StatefulWidget {
   final Duration animationDuration;
   final double height;
   final double width;
-  final LocalizedText localizedText;
+  final LinearGradient backgroundGradientColor;
 
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
@@ -58,19 +58,21 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       vsync: this,
     );
 
-    backgroundGradientColor = LinearGradient(
-      // Where the linear gradient begins and ends
-      begin: Alignment.topRight,
-      end: Alignment.bottomLeft,
-      // Add one stop for each color. Stops should increase from 0 to 1
-      stops: const <double>[0.1, 0.4, 0.7, 0.9],
-      colors: <Color>[
-        widget.cardBgColor.withOpacity(1),
-        widget.cardBgColor.withOpacity(0.97),
-        widget.cardBgColor.withOpacity(0.90),
-        widget.cardBgColor.withOpacity(0.86),
-      ],
-    );
+    backgroundGradientColor = widget.backgroundGradientColor != null
+        ? widget.backgroundGradientColor
+        : LinearGradient(
+            // Where the linear gradient begins and ends
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: const <double>[0.1, 0.4, 0.7, 0.9],
+            colors: <Color>[
+              widget.cardBgColor.withOpacity(1),
+              widget.cardBgColor.withOpacity(0.97),
+              widget.cardBgColor.withOpacity(0.90),
+              widget.cardBgColor.withOpacity(0.86),
+            ],
+          );
 
     ///Initialize the Front to back rotation tween sequence.
     _frontRotation = TweenSequence<double>(
