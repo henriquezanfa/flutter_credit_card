@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'localized_text_model.dart';
-
 class CreditCardWidget extends StatefulWidget {
   const CreditCardWidget({
     Key key,
@@ -20,7 +18,6 @@ class CreditCardWidget extends StatefulWidget {
     this.backgroundGradientColor,
   })  : assert(cardNumber != null),
         assert(showBackView != null),
-        assert(localizedText != null),
         super(key: key);
 
   final String cardNumber;
@@ -171,7 +168,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         ],
         gradient: backgroundGradientColor,
       ),
-      margin: const EdgeInsets.all(16),
+      // margin: const EdgeInsets.all(16),
       width: widget.width ?? width,
       height: widget.height ??
           (orientation == Orientation.portrait ? height / 4 : height / 2),
@@ -209,7 +206,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                         padding: const EdgeInsets.all(5),
                         child: Text(
                           widget.cvvCode.isEmpty
-                              ? isAmex ? 'XXXX' : widget.localizedText.cvvHint
+                              ? isAmex
+                                  ? 'XXXX'
+                                  : 'XXX'
                               : widget.cvvCode,
                           maxLines: 1,
                           style: widget.textStyle ?? defaultTextStyle,
@@ -256,7 +255,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         );
 
     return Container(
-      margin: const EdgeInsets.all(16),
+      // margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         boxShadow: const <BoxShadow>[
@@ -286,7 +285,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
               padding: const EdgeInsets.only(left: 16),
               child: Text(
                 widget.cardNumber.isEmpty || widget.cardNumber == null
-                    ? widget.localizedText.cardNumberHint
+                    ? 'XXXX XXXX XXXX XXXX'
                     : widget.cardNumber,
                 style: widget.textStyle ?? defaultTextStyle,
               ),
@@ -298,7 +297,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
               padding: const EdgeInsets.only(left: 16),
               child: Text(
                 widget.expiryDate.isEmpty || widget.expiryDate == null
-                    ? widget.localizedText.expiryDateHint
+                    ? 'MM/AA'
                     : widget.expiryDate,
                 style: widget.textStyle ?? defaultTextStyle,
               ),
@@ -309,7 +308,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
               padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
               child: Text(
                 widget.cardHolderName.isEmpty || widget.cardHolderName == null
-                    ? widget.localizedText.cardHolderLabel.toUpperCase()
+                    ? 'Nome no cartão'
                     : widget.cardHolderName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
